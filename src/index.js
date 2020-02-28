@@ -3,40 +3,20 @@ import 'leaflet';
 import 'leaflet-realtime';
 import './style.css';
 
-// Function to assign color depends on the Magnitude
-function getColor(m) {
-
-  var colors = ['chartreuse','greenyellow','gold','DarkOrange','Peru','red'];
-
-  return  m > 5? colors[5]:
-          m > 4? colors[4]:
-          m > 3? colors[3]:
-          m > 2? colors[2]:
-          m > 1? colors[1]:
-                 colors[0];
-};
-
-function chooseColor(mag) {
-  switch (true) {
-    case (mag < 1):
-      return "chartreuse";
-    case (mag < 2):
-      return "greenyellow";
-    case (mag < 3):
-      return "gold";
-    case (mag < 4):
-      return "DarkOrange";
-    case (mag < 5):
-      return "Peru";
-    default:
-      return "red";
-  };
+// Function to set marker color based on magnitude using a ternary operator
+function getColor(mag){
+  return mag > 5 ? "#d73027":
+      mag > 4 ? "#fc8d59" :
+      mag > 3 ? "#fee08b":
+      mag > 2 ? "#d9ef8b":
+      mag > 1 ? "#91cf60":
+      "#1a9850";
 }
 
 function createCircleMarker(feature, latlng) {
   let options = {
     radius: feature.properties.mag * 4,
-    fillColor: chooseColor(feature.properties.mag),
+    fillColor: getColor(feature.properties.mag),
     color: "black",
     weight: 1,
     opacity: 1,
@@ -76,10 +56,6 @@ var subgroup2 = L.geoJson();
 
 var realtime1 = createRealtimeLayer('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson', subgroup1).addTo(map)
 var realtime2 = createRealtimeLayer('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson', subgroup2);
-
-
-
-
 
 
 var CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
