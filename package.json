@@ -20,5 +20,8 @@
   "dependencies": {
     "leaflet": "^1.6.0",
     "leaflet-realtime": "^2.2.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
   }
 }
