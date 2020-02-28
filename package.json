@@ -1,0 +1,24 @@
+{
+  "name": "qt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx parcel serve index.html --open",
+    "build": "npx parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diskmanti/qt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diskmanti/qt/issues"
+  },
+  "homepage": "https://github.com/diskmanti/qt#readme",
+  "dependencies": {
+    "leaflet": "^1.6.0",
+    "leaflet-realtime": "^2.2.0"
+  }
+}
