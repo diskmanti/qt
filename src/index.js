@@ -3,6 +3,19 @@ import 'leaflet';
 import 'leaflet-realtime';
 import './style.css';
 
+// Function to assign color depends on the Magnitude
+function getColor(m) {
+
+  var colors = ['chartreuse','greenyellow','gold','DarkOrange','Peru','red'];
+
+  return  m > 5? colors[5]:
+          m > 4? colors[4]:
+          m > 3? colors[3]:
+          m > 2? colors[2]:
+          m > 1? colors[1]:
+                 colors[0];
+};
+
 function chooseColor(mag) {
   switch (true) {
     case (mag < 1):
@@ -107,6 +120,27 @@ L.control.layers(baseMaps, overlayMaps, {
 realtime1.once('update', function () {
   map.fitBounds(realtime1.getBounds(), { maxZoom: 3 });
 });
+
+
+// Create a legend to display information in the bottom right
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function(map) {
+
+  var div = L.DomUtil.create('div','info legend'),
+      magnitudes = [0,1,2,3,4,5],
+      labels = [];
+
+  div.innerHTML += "<h4 style='margin:4px'>Magnitude</h4>" 
+  // loop through our density intervals and generate a label for each interval
+  for (var i=0; i < magnitudes.length; i++){
+    div.innerHTML +=
+      '<i style="background:' + getColor(magnitudes[i] + 1) + '"></i> ' +
+      magnitudes[i] + (magnitudes[i+1]?'&ndash;' + magnitudes[i+1] +'<br>': '+');
+    }
+    return div;
+};
+legend.addTo(map);
 
 
 
